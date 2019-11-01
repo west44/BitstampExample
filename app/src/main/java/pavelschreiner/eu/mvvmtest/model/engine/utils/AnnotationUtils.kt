@@ -14,7 +14,7 @@ object AnnotationUtils {
                 }
             }
         }
-        return null
+        return pusherKey.pusherkeyString
     }
 
     private fun checkPusherAnnotationFieldFormat(pusherKeyString: String): String? {
