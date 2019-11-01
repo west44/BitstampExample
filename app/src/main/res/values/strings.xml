@@ -7,4 +7,5 @@
     <string name="order_book_bids">Bids</string>
     <string name="currency_usd">\u0020USD</string>
     <string name="currency_btc">\u0020BTC</string>
+    <string name="wrong_pusher_key_format">Wrong Pusher key format!</string>
 </resources>

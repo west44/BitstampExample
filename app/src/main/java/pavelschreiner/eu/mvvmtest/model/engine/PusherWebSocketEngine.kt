@@ -15,16 +15,20 @@ class PusherWebSocketEngine @Inject constructor(var bitstamp: BitstampExchange) 
     private lateinit var pusher: Pusher
     private var subscribedChannels: ArrayList<String> = ArrayList()
 
-    fun startPusherConnection(pusherKey: PusherKey) {
-        pusher = Pusher(AnnotationUtils.checkAnnotations(pusherKey))
-        pusher.connect(object : ConnectionEventListener {
-            override fun onConnectionStateChange(change: ConnectionStateChange) {
-            }
+    fun startPusherConnection(pusherKey: PusherKey): Boolean {
+        val finalPusherKey = AnnotationUtils.checkAnnotations(pusherKey)
+        finalPusherKey?.let {
+            pusher = Pusher(finalPusherKey)
+            pusher.connect(object : ConnectionEventListener {
+                override fun onConnectionStateChange(change: ConnectionStateChange) {
+                }
 
-            override fun onError(message: String, code: String?, e: Exception?) {
-                Log.d("PUSHER", "Error! " + message + ", code=" + code + ", ex=" + e.toString())
-            }
-        }, ConnectionState.ALL)
+                override fun onError(message: String, code: String?, e: Exception?) {
+                    Log.d("PUSHER", "Error! " + message + ", code=" + code + ", ex=" + e.toString())
+                }
+            }, ConnectionState.ALL)
+        } ?: return false
+        return true
     }
 
     fun subscribeChannel(channelName: String, eventsName: Array<String>) {

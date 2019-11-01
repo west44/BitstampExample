@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="pavelschreiner.eu.mvvmtest.viewmodel.MainViewModel" />
@@ -63,6 +64,18 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/paste_pusher_key"
             android:onClick="@{() -> vm.startPusherConnection()}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/error_message"
+            android:layout_margin="16dp"
+            android:text="@string/wrong_pusher_key_format"
+            android:visibility="@{vm.showPusherKeyErrorMessage ? View.VISIBLE : View.GONE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/start_button"
+            android:textColor="#F00" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

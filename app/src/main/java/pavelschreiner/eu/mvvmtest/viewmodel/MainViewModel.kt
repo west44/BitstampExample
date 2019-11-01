@@ -26,10 +26,12 @@ class MainViewModel : ViewModel() {
     private var orderBookSwitchChecked: ObservableBoolean = ObservableBoolean()
     var orderBookSwitchText: ObservableField<String> = ObservableField()
     var pusherKeyString: ObservableField<String> = ObservableField()
+    var showPusherKeyErrorMessage: ObservableBoolean = ObservableBoolean()
 
     @Inject lateinit var engine: PusherWebSocketEngine
 
     init {
+        showPusherKeyErrorMessage.set(false)
         buyPrice.value = 0.0
         sellPrice.value = 0.0
         orderBookSwitchChecked.set(false)
@@ -40,9 +42,13 @@ class MainViewModel : ViewModel() {
     fun startPusherConnection() {
         val pusherObject = PusherKey(pusherKeyString.get())
         pusherObject.pusherkeyString?.let {
-            engine.startPusherConnection(pusherObject)
-            engine.subscribeChannel(ExchangeInterface.CHANNEL_ORDER_BOOK_BTC_USD, arrayOf("data"))
-            engine.subscribeChannel(ExchangeInterface.CHANNEL_LIVE_TRADES_BTC_USD, arrayOf("trade"))
+            if (engine.startPusherConnection(pusherObject)) {
+                engine.subscribeChannel(ExchangeInterface.CHANNEL_ORDER_BOOK_BTC_USD, arrayOf("data"))
+                engine.subscribeChannel(ExchangeInterface.CHANNEL_LIVE_TRADES_BTC_USD, arrayOf("trade"))
+                showPusherKeyErrorMessage.set(false)
+            } else {
+                showPusherKeyErrorMessage.set(true)
+            }
         }
     }
 
@@ -73,6 +79,6 @@ class MainViewModel : ViewModel() {
     }
 
     fun pasteValidPusherKey() {
-        pusherKeyString?.set(PUSHER_KEY)
+        pusherKeyString.set(PUSHER_KEY)
     }
 }

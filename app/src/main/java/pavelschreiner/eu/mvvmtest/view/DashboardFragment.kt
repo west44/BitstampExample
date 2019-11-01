@@ -11,8 +11,6 @@ import pavelschreiner.eu.mvvmtest.R
 import pavelschreiner.eu.mvvmtest.databinding.DashboardFragmentBinding
 import pavelschreiner.eu.mvvmtest.viewmodel.MainViewModel
 
-
-
 class DashboardFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
