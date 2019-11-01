@@ -4,7 +4,7 @@ import dagger.Component
 import pavelschreiner.eu.mvvmtest.viewmodel.MainViewModel
 
 @Component
-interface BitstampEngineComponent {
+interface BitstampExchangeComponent {
 
     fun inject(mainViewModel: MainViewModel)
 }

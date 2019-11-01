@@ -20,7 +20,6 @@ class BitstampExchange @Inject constructor() : ExchangeInterface {
     var liveTradesList: MutableLiveData<ArrayList<ListItemModel>> = MutableLiveData()
     var orderBookSwitchChecked: Boolean = false
 
-
     override fun parseOrderBookData(type: EngineDataType, data: String) {
 
         val parser = JSONParser()

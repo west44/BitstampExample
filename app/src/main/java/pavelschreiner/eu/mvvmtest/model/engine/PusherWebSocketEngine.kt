@@ -5,18 +5,18 @@ import com.pusher.client.Pusher
 import com.pusher.client.connection.ConnectionEventListener
 import com.pusher.client.connection.ConnectionState
 import com.pusher.client.connection.ConnectionStateChange
-import pavelschreiner.eu.mvvmtest.model.engine.EngineDataType.*
+import pavelschreiner.eu.mvvmtest.model.engine.EngineDataType.LIVE_TRADES
+import pavelschreiner.eu.mvvmtest.model.engine.EngineDataType.ORDER_BOOK
+import pavelschreiner.eu.mvvmtest.model.engine.utils.AnnotationUtils
 import javax.inject.Inject
 
 class PusherWebSocketEngine @Inject constructor(var bitstamp: BitstampExchange) {
-    companion object {
-        const val PUSHER_KEY = "de504dc5763aeef9ff52"
-    }
 
-    private val pusher: Pusher = Pusher(PUSHER_KEY)
+    private lateinit var pusher: Pusher
     private var subscribedChannels: ArrayList<String> = ArrayList()
 
-    init {
+    fun startPusherConnection(pusherKey: PusherKey) {
+        pusher = Pusher(AnnotationUtils.checkAnnotations(pusherKey))
         pusher.connect(object : ConnectionEventListener {
             override fun onConnectionStateChange(change: ConnectionStateChange) {
             }
@@ -25,8 +25,6 @@ class PusherWebSocketEngine @Inject constructor(var bitstamp: BitstampExchange) 
                 Log.d("PUSHER", "Error! " + message + ", code=" + code + ", ex=" + e.toString())
             }
         }, ConnectionState.ALL)
-        pusher.unsubscribe(ExchangeInterface.CHANNEL_ORDER_BOOK_BTC_USD)
-        pusher.unsubscribe(ExchangeInterface.CHANNEL_LIVE_TRADES_BTC_USD)
     }
 
     fun subscribeChannel(channelName: String, eventsName: Array<String>) {

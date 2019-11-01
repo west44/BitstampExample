@@ -47,6 +47,7 @@ dependencies {
     implementation 'net.danlew:android.joda:2.10.3'
     implementation 'javax.websocket:javax.websocket-api:1.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 configurations {
     compile.exclude group: "junit", module: "junit"
