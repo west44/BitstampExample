@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MvvMtest</string>
+    <string name="title_order_book">Order book</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_transactions">Transactions</string>
+    <string name="order_book_asks">Asks</string>
+    <string name="order_book_bids">Bids</string>
+    <string name="currency_usd">\u0020USD</string>
+    <string name="currency_btc">\u0020BTC</string>
+</resources>
